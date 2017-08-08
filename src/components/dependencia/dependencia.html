@@ -1,4 +1,12 @@
-<!-- Generated template for the DependenciaComponent component -->
-<div>
-  {{text}}
-</div>
+
+<ion-content class="card-background-page" >
+
+  <ion-card *ngFor="let item of listaDependencias"  >
+    <img src={{item.imag}}/>
+
+   <!--
+    <div class="card-title">{{item.nombre}}</div>
+    <div class="card-subtitle"></div>
+   -->
+  </ion-card>
+</ion-content>

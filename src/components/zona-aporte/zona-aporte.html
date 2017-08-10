@@ -1,0 +1,30 @@
+<!-- Generated template for the ZonaAporteComponent component -->
+<!--  -->
+
+<ion-header>
+  <!--   <ion-title  text-center >  -->
+  <ion-navbar color="primary" >
+    <ion-toolbar color="primary">
+      <ion-searchbar (input)="getItems($event)"></ion-searchbar>
+    </ion-toolbar>
+  </ion-navbar>
+<!--  {{facultad}}
+  </ion-title>  -->
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let item of items">
+      {{ item }}
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+
+
+
+
+    <ion-fab bottom right>
+        <button ion-fab ><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
+

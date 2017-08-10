@@ -1,4 +1,7 @@
 import { Component } from "@angular/core";
+import { NavController } from 'ionic-angular';
+import { NavParams} from 'ionic-angular';
+import { ZonaAporteComponent } from "../zona-aporte/zona-aporte";
 
 /**
  * Generated class for the DependenciaComponent component.
@@ -13,10 +16,15 @@ import { Component } from "@angular/core";
 export class DependenciaComponent {
   text: string;
 
-  constructor() {
-    console.log("Hello DependenciaComponent Component");
-    this.text = "Hello World";
+   constructor(public navCtrl: NavController,public navParams: NavParams
+
+  ) {
+
   }
+
+zonaDeAportes(depen:string){
+  this.navCtrl.push(ZonaAporteComponent,{facultad:depen});
+}
 
   listaDependencias: Array<any> = [
     {

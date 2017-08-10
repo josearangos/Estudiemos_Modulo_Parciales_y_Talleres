@@ -2,9 +2,8 @@
 <ion-content class="card-background-page" >
 
   <ion-card *ngFor="let item of listaDependencias"  >
-    <img src={{item.imag}}/>
-
-   <!--
+    <img src={{item.imag}}  (click)="zonaDeAportes(item.nombre)">
+    <!--
     <div class="card-title">{{item.nombre}}</div>
     <div class="card-subtitle"></div>
    -->

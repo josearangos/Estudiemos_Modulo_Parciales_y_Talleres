@@ -9,6 +9,7 @@ import { HomePage } from '../pages/home/home';
 
 // componentes
 import { DependenciaComponent } from '../components/dependencia/dependencia';
+import { ZonaAporteComponent } from '../components/zona-aporte/zona-aporte';
 
 
 
@@ -16,6 +17,7 @@ import { DependenciaComponent } from '../components/dependencia/dependencia';
   declarations: [
     MyApp,
     DependenciaComponent,
+    ZonaAporteComponent,
     HomePage
   ],
   imports: [
@@ -26,6 +28,7 @@ import { DependenciaComponent } from '../components/dependencia/dependencia';
   entryComponents: [
     MyApp,
     DependenciaComponent,
+    ZonaAporteComponent,
     HomePage
   ],
   providers: [

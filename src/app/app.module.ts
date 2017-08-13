@@ -10,6 +10,7 @@ import { HomePage } from '../pages/home/home';
 // componentes
 import { DependenciaComponent } from '../components/dependencia/dependencia';
 import { ZonaAporteComponent } from '../components/zona-aporte/zona-aporte';
+import { CreacionAporteComponent } from '../components/creacion-aporte/creacion-aporte';
 
 
 
@@ -18,6 +19,7 @@ import { ZonaAporteComponent } from '../components/zona-aporte/zona-aporte';
     MyApp,
     DependenciaComponent,
     ZonaAporteComponent,
+    CreacionAporteComponent,
     HomePage
   ],
   imports: [
@@ -29,6 +31,7 @@ import { ZonaAporteComponent } from '../components/zona-aporte/zona-aporte';
     MyApp,
     DependenciaComponent,
     ZonaAporteComponent,
+    CreacionAporteComponent,
     HomePage
   ],
   providers: [

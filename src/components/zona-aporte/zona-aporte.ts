@@ -1,3 +1,4 @@
+import { CreacionAporteComponent } from './../creacion-aporte/creacion-aporte';
 import { Component } from '@angular/core';
 import { NavController ,NavParams } from 'ionic-angular';
 
@@ -68,7 +69,9 @@ export class ZonaAporteComponent {
     }
   }
 
-
+  irCreacionAporte(){
+    this.navCtrl.push(CreacionAporteComponent);
+  }
 
 
 

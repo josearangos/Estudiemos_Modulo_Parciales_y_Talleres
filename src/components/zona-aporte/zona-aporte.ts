@@ -1,7 +1,8 @@
 import { CreacionAporteComponent } from './../creacion-aporte/creacion-aporte';
 import { Component } from '@angular/core';
 import { NavController ,NavParams } from 'ionic-angular';
-
+// import module firebase database
+import {AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
 /**
  * Generated class for the ZonaAporteComponent component.
  *
@@ -13,50 +14,36 @@ import { NavController ,NavParams } from 'ionic-angular';
   templateUrl: 'zona-aporte.html'
 })
 export class ZonaAporteComponent {
+
   public facultad;
 
-  constructor(public navCtrl: NavController,public navParams: NavParams) {
-     this.initializeItems();
+  /*
+   test firebase add
+  */
+  objetRef$:FirebaseListObservable<any>;
+
+  constructor(public navCtrl: NavController,public navParams: NavParams,
+    private database:AngularFireDatabase
+  ) {
+
      this.facultad=navParams.get("facultad");
+     this.objetRef$=this.database.list('Materias/'+this.facultad);
+     this.initializeItems();
   }
-
-   searchQuery: string = '';
-  items: string[];
-
+  searchQuery: string = '';
+  items: any;
+  arr;
 
   // llegar de la base de datos
   initializeItems() {
-    this.items = [
-      'Amsterdam',
-      'Bogota',
-      'PERU',
-      'niquia',
-       'Amsterdam',
-      'Bogota',
-      'PERU',
-      'niquia',
-       'Amsterdam',
-      'Bogota',
-      'PERU',
-      'niquia',
-       'Amsterdam',
-      'Bogota',
-      'PERU',
-      'niquia',
-       'Amsterdam',
-      'Bogota',
-      'PERU',
-      'niquia',
-       'Amsterdam',
-      'Bogota',
-      'PERU',
-      'niquia'
-    ];
+    this.items = this.objetRef$;
+    this.arr= this.items.toString().replace("},{", " ,").split(" ");
   }
 
   getItems(ev: any) {
     // Reset items back to all of the items
     this.initializeItems();
+    console.log(this.arr);
 
     // set val to the value of the searchbar
     let val = ev.target.value;
@@ -72,8 +59,4 @@ export class ZonaAporteComponent {
   irCreacionAporte(){
     this.navCtrl.push(CreacionAporteComponent);
   }
-
-
-
-
 }

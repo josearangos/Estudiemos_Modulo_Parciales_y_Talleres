@@ -1,11 +1,18 @@
 
 <ion-content class="card-background-page" >
 
-  <ion-card *ngFor="let item of listaDependencias"  >
-    <img src={{item.imag}}  (click)="zonaDeAportes(item.nombre)">
+  <ion-card *ngFor="let item of objetRef$ | async"  >
+
+<!--    -->
+    <img src={{item.img}}  (click)="zonaDeAportes(item.name)">
+
     <!--
-    <div class="card-title">{{item.nombre}}</div>
+
+    <div class="card-title">{{item.name}}</div>
     <div class="card-subtitle"></div>
-   -->
+    -->
+
   </ion-card>
+
+
 </ion-content>

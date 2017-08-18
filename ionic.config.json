@@ -1,5 +1,8 @@
 {
   "name": "Estudiemos_Modulo_Parciales_y_Talleres",
-  "app_id": "",
-  "type": "ionic-angular"
+  "app_id": "05f7e2c5",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
 }

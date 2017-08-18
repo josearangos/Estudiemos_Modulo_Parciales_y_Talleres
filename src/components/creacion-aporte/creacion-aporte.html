@@ -1,4 +1,13 @@
 <!-- Generated template for the CreacionAporteComponent component -->
-<div>
-  {{text}}
-</div>
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      Demo 102
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <button ion-button block (click)="getPicture()">Toma una foto</button>
+  <img [src]="image" *ngIf="image" />
+</ion-content>

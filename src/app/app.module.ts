@@ -1,9 +1,11 @@
+
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-
+//Ionic view
+import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
 // firebase Module
 import {AngularFireModule} from 'angularfire2';
 // firebase credential of the dashboard
@@ -20,6 +22,14 @@ import { ZonaAporteComponent } from '../components/zona-aporte/zona-aporte';
 import { CreacionAporteComponent } from '../components/creacion-aporte/creacion-aporte';
 
 
+//Camara
+import { Camera } from io'@ionic-native/camera';
+
+const CloudSettings: CloudSettings = {
+  'core':{
+    'app_id': '05f7e2c5'
+  }
+};
 
 @NgModule({
   declarations: [
@@ -35,7 +45,9 @@ import { CreacionAporteComponent } from '../components/creacion-aporte/creacion-
     // initialise angularfirebase with credencials form the dashboard
     AngularFireModule.initializeApp(FIREBASE_CREDENTIALS),
   // database Firebase
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    //ionicview
+    CloudModule.forRoot(CloudSettings)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -48,6 +60,7 @@ import { CreacionAporteComponent } from '../components/creacion-aporte/creacion-
   providers: [
     StatusBar,
     SplashScreen,
+    Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

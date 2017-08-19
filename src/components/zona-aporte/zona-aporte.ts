@@ -16,35 +16,43 @@ import {AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database'
 export class ZonaAporteComponent {
 
   public facultad;
-  images =['06.jpg','Logo01.png','preview.jpg'];
-
   /*
    test firebase add
   */
   objetRef$:FirebaseListObservable<any>;
 
+  // array que contiene las materias
+  items: any[]=[];
+
   constructor(public navCtrl: NavController,public navParams: NavParams,
     private database:AngularFireDatabase
   ) {
 
+    // variable que contiene la dependencias que se escogio
      this.facultad=navParams.get("facultad");
+     // objetRef es el objeto que observa la base de datos nodo de materias
      this.objetRef$=this.database.list('Materias/'+this.facultad);
+     //initializar el vector de las materias
      this.initializeItems();
   }
-  searchQuery: string = '';
-  items: any;
-  arr;
 
-  // llegar de la base de datos
+  // crear el vector con las materias
   initializeItems() {
-    this.items = this.objetRef$;
-    this.arr= this.items.toString().replace("},{", " ,").split(" ");
+     this.items=[];
+     // se recorre el vector JSON
+    this.objetRef$.forEach(element => {
+      element.forEach(a => {
+        // se agregar las materias al vector
+        this.items.push(a.name);
+      });
+     });
   }
 
+
+  // metodo de filtro de palabras
   getItems(ev: any) {
     // Reset items back to all of the items
     this.initializeItems();
-    console.log(this.arr);
 
     // set val to the value of the searchbar
     let val = ev.target.value;
@@ -60,4 +68,5 @@ export class ZonaAporteComponent {
   irCreacionAporte(){
     this.navCtrl.push(CreacionAporteComponent);
   }
+
 }

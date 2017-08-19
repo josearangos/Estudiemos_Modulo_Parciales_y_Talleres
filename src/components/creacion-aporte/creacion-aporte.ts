@@ -35,11 +35,6 @@ export class CreacionAporteComponent {
     });
   }
 
-  store(){
-
-
-  }
-
 
 
 

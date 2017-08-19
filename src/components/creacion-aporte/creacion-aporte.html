@@ -1,15 +1,59 @@
 <!-- Generated template for the CreacionAporteComponent component -->
+<!--header posiciona el navbar arriba,
+    navbar añade el div con la funcionalidad de "atras"-->
 <ion-header>
   <ion-navbar color="primary">
     <ion-title>
-      Demo 102
+      Comparte tu aporte
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+  <ion-item id="divImages">
+      <ion-card>
+          <ion-card-content>
+            <ion-slides class="image-slider" loop ="true "pager effect="coverflow"><!--slide, fade, cube, coverflow or flip-->
+                <ion-slide *ngFor="let img of imagenes" >
+                  <img src="{{img}}" class="thumb-img" imageViewer>
+                </ion-slide>
+            </ion-slides>
+          </ion-card-content>
+        </ion-card>
+        <!--   <button ion-button outline>{{item.name}}</button>  -->
+  </ion-item>
+
   <button ion-button block (click)="getPicture()">Toma una foto</button>
-  <img [src]="image" *ngIf="image" />
+  <!--<img [src]="image" *ngIf="image" />-->
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Dependencia</ion-label>
+      <ion-select [(ngModel)]="dependencia">
+        <ion-option *ngFor="let dep of dependencias" value="{{dep}}">{{dep}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Materia</ion-label>
+      <ion-select [(ngModel)]="materia">
+        <ion-option *ngFor="let mat of materias" value="{{mat}}">{{mat}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Tema:</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Descripción:</ion-label>
+      <ion-textarea></ion-textarea>
+    </ion-item>
 
 
+
+
+
+  </ion-list>
 </ion-content>

@@ -13,7 +13,11 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 })
 export class CreacionAporteComponent {
 
-  image: string = null;
+  //image: string = null;
+  dependencias = ["Inenieria", "Exactas","Medicina"];
+  materias = ["Campos", "Logica", "Algebra"];
+  imagenes = [];
+  contImg = 0;
 
   constructor(
     private camera: Camera
@@ -28,7 +32,9 @@ export class CreacionAporteComponent {
     }
     this.camera.getPicture( options )
     .then(imageData => {
-      this.image = `data:image/jpeg;base64,${imageData}`;
+      //this.image = `data:image/jpeg;base64,${imageData}`;
+      this.imagenes[this.contImg] = `data:image/jpeg;base64,${imageData}`;
+      this.contImg = this.contImg + 1;
     })
     .catch(error =>{
       console.error( error );

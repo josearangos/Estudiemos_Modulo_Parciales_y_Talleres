@@ -35,4 +35,11 @@ export class CreacionAporteComponent {
     });
   }
 
+  store(){
+
+  }
+
+
+
+
 }

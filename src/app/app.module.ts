@@ -1,4 +1,5 @@
 
+import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -20,16 +21,20 @@ import { HomePage } from '../pages/home/home';
 import { DependenciaComponent } from '../components/dependencia/dependencia';
 import { ZonaAporteComponent } from '../components/zona-aporte/zona-aporte';
 import { CreacionAporteComponent } from '../components/creacion-aporte/creacion-aporte';
+import { AporteComponent } from '../components/aporte/aporte';
+//ImageView Galeria
+
+
 
 
 //Camara
-import { Camera } from io'@ionic-native/camera';
+import { Camera } from '@ionic-native/camera';
 
 const CloudSettings: CloudSettings = {
   'core':{
     'app_id': '05f7e2c5'
   }
-};
+}
 
 @NgModule({
   declarations: [
@@ -37,11 +42,15 @@ const CloudSettings: CloudSettings = {
     DependenciaComponent,
     ZonaAporteComponent,
     CreacionAporteComponent,
+    AporteComponent,
+
     HomePage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    // image gallery efect to zoom
+    IonicImageViewerModule,
     // initialise angularfirebase with credencials form the dashboard
     AngularFireModule.initializeApp(FIREBASE_CREDENTIALS),
   // database Firebase
@@ -55,6 +64,7 @@ const CloudSettings: CloudSettings = {
     DependenciaComponent,
     ZonaAporteComponent,
     CreacionAporteComponent,
+    AporteComponent,
     HomePage
   ],
   providers: [

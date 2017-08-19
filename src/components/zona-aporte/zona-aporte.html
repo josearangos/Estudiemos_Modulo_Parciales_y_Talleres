@@ -13,10 +13,26 @@
 </ion-header>
 
 <ion-content>
+
+
+
+
+
   <ion-list>
     <ion-item *ngFor="let item of items | async">
-
-    <button ion-button outline>{{item.name}}</button>
+        <ion-card>
+            <ion-card-content>
+              <ion-card-title>
+                  {{item.name}}
+                </ion-card-title>
+                <ion-slides class="image-slider" loop ="true "pager effect="cube">
+                    <ion-slide *ngFor="let img of images" >
+                      <img src="../../assets/img/{{img}}" class="thumb-img" imageViewer>
+                    </ion-slide>
+                </ion-slides>
+             </ion-card-content>
+          </ion-card>
+          <!--   <button ion-button outline>{{item.name}}</button>  -->
     </ion-item>
   </ion-list>
 

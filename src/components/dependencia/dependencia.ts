@@ -34,3 +34,5 @@ zonaDeAportes(depen:string){
   this.navCtrl.push(ZonaAporteComponent,{facultad:depen});
 }
 }
+ 
+

@@ -16,6 +16,7 @@ import {AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database'
 export class ZonaAporteComponent {
 
   public facultad;
+  images =['06.jpg','Logo01.png','preview.jpg'];
 
   /*
    test firebase add

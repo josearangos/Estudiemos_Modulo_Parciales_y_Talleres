@@ -13,6 +13,8 @@ import {AngularFireModule} from 'angularfire2';
 import {FIREBASE_CREDENTIALS } from '../app/firebase.credentials';
 // database firebase
 import {AngularFireDatabaseModule} from 'angularfire2/database';
+//firebase storage
+import 'firebase/storage';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';

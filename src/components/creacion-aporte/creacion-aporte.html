@@ -29,12 +29,6 @@
 
   <!--Seleccion de dependencia-->
   <ion-list>
-    <ion-item>
-      <ion-label>Dependencia</ion-label>
-      <ion-select [(ngModel)]="ngDependencia" placeholder="Ingenieria">
-        <ion-option *ngFor="let dep of dependencias" value=`{{dep}}` (click)="cambiarMaterias()"> {{dep}} </ion-option>
-      </ion-select>
-    </ion-item>
     <!--Seleccion de Material-->
     <ion-item>
       <ion-label>Materia</ion-label>
@@ -45,15 +39,16 @@
     <!--Ingreso de tema de la documentacion-->
     <ion-item>
       <ion-label stacked>Tema:</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input type="text" [(ngModel)]="ngTema"></ion-input>
     </ion-item>
     <!--Ingreso de descripcion de documentacion-->
     <ion-item>
       <ion-label stacked>Descripción:</ion-label>
-      <ion-textarea></ion-textarea>
+      <ion-textarea [(ngModel)]="ngDescripcion"></ion-textarea>
     </ion-item>
     <!-- Envia el aporte a la bd firebase-->
-    <button button ion-button block (click)="setAporte()">Compartir aporte</button>
+    <button button ion-button block (click)="setAporte()">Compartir aportessss</button>
+
   </ion-list>
 
 </ion-content>

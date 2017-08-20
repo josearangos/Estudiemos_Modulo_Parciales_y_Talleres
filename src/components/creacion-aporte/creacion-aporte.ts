@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 //Import firebase
 import {AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
-
+import { FirebaseApp } from 'angularfire2';//Import storage
 /**
  * Generated class for the CreacionAporteComponent component.
  *
@@ -16,61 +16,52 @@ import {AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database'
 })
 export class CreacionAporteComponent {
 
-  //image: string = null;
-  //dependencias y materias que estaran dadaso por firebase
-  //dependencias = ["a","b","c"];
-  dependencias;
-  materias;
-  imagenes = [];//Contiene las imagenes del usuario
-  ngDependencia = "Ingenieria";
-  ngMateria;
-  facultad;
+  materias;//materias de {{facultad}}
+  imagenes = [];//Contiene las imagenes del usuario "vista"
+  storageImgs = [];//Contiene las imgs que se van a guardar "formato"
+  ngMateria;//materia elejida
+  ngTema = "";//Tema entrado
+  ngDescripcion = "";//Descripcion entrado
+  facultad;//facultad en la que se encuentra
+  fbStorage;
+  fbStorageRef;
   /*
   test firebase add
   */
   objetRef$:FirebaseListObservable<any>;
 
-  constructor(private camera: Camera, private database:AngularFireDatabase, public navParams: NavParams) {
+  constructor(private camera: Camera, private database:AngularFireDatabase, public navParams: NavParams, app: FirebaseApp) {
     this.facultad=navParams.get("facultad");
     console.log(this.facultad);
-    this.objetRef$ = this.database.list('Dependencia');
-
+    this.objetRef$=this.database.list('Aportes/Dependencia/'+this.facultad+"/Materias");
+    this.fbStorage = app.storage();
     this.initializeItems();
   }
 
-  initializeItems(){
-    this.dependencias = [];
-    this.objetRef$.forEach(element => {
-      element.forEach(dep => {
-        this.dependencias.push(dep.$key);
-      });
-     });
-    this.cambiarMaterias();
-  }
-
-  cambiarMaterias(){
-    console.log("qeq");
-    /*this.objetRef$=this.database.list('Materias/'+this.ngDependencia);
+  initializeItems(){//trae las materias de fb y las pone en la vista
     this.materias = [];
     this.objetRef$.forEach(element => {
       element.forEach(a => {
         // se agregar las materias al vector
         this.materias.push(a.name);
       });
-     });*/
+     });
   }
 
-  getPicture(){
-    let options: CameraOptions = {
-      destinationType: this.camera.DestinationType.DATA_URL,
-      targetWidth: 1000,
-      targetHeight: 1000,
-      quality: 100
+  getPicture(){//Obtiene las imgs que el usuario tome
+    let options: CameraOptions = {//Conf de la camara
+      quality : 75,
+      destinationType : this.camera.DestinationType.DATA_URL,
+      sourceType : this.camera.PictureSourceType.CAMERA,
+      allowEdit : true,
+      encodingType: this.camera.EncodingType.JPEG,
+      targetWidth: 500,
+      targetHeight: 500,
+      saveToPhotoAlbum: false
     }
-    this.camera.getPicture( options )
-    .then(imageData => {
-      //this.image = `data:image/jpeg;base64,${imageData}`;
-      this.imagenes.push(`data:image/jpeg;base64,${imageData}`);
+    this.camera.getPicture( options ).then(imageData => {//Obtiene la img
+      this.imagenes.push(`data:image/jpeg;base64,${imageData}`);//vista
+      this.storageImgs.push(imageData);//almacenamiento
     })
     .catch(error =>{
       console.error( error );
@@ -78,9 +69,25 @@ export class CreacionAporteComponent {
   }
 
   setAporte(){
-
+    var directorio = 'Aportes/Dependencia/'+this.facultad+"/Materias/"+this.ngMateria;
+    this.objetRef$=this.database.list(directorio);
+    var key = this.objetRef$.push({
+      materia: this.ngMateria,
+      tema: this.ngTema,
+      descripcion : this.ngDescripcion
+    }).key;
+    directorio = directorio+"/"+key;
+    var linksImgs = [];
+    for(var cont = 0; cont < this.storageImgs.length;cont++){
+      this.fbStorageRef = this.fbStorage.ref().child(directorio+"/"+cont.toString());
+      this.fbStorageRef.putString(this.storageImgs[cont], 'base64').then(function(snapshot) {
+        alert("Aporte enviado");
+      });
+      linksImgs.push("gs://estudiemos-e06c3.appspot.com/"+directorio+"/"+cont.toString())
+    }
+    this.objetRef$=this.database.list(directorio);
+    this.objetRef$.update("fotos",{
+      fotos: linksImgs
+    });
   }
-
-
-
 }

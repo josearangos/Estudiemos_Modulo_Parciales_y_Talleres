@@ -8,7 +8,7 @@
     </ion-title>
   </ion-navbar>
 </ion-header>
-
+<!--Muestra imagenes tomadas por la camara-->
 <ion-content padding>
   <ion-item id="divImages">
       <ion-card>
@@ -23,37 +23,37 @@
         <!--   <button ion-button outline>{{item.name}}</button>  -->
   </ion-item>
 
+  <!--Boton para tomar una foto-->
   <button ion-button block (click)="getPicture()">Toma una foto</button>
   <!--<img [src]="image" *ngIf="image" />-->
 
+  <!--Seleccion de dependencia-->
   <ion-list>
     <ion-item>
       <ion-label>Dependencia</ion-label>
-      <ion-select [(ngModel)]="dependencia">
-        <ion-option *ngFor="let dep of dependencias" value="{{dep}}">{{dep}}</ion-option>
+      <ion-select [(ngModel)]="ngDependencia" placeholder="Ingenieria">
+        <ion-option *ngFor="let dep of dependencias" value=`{{dep}}` (click)="cambiarMaterias()"> {{dep}} </ion-option>
       </ion-select>
     </ion-item>
-
+    <!--Seleccion de Material-->
     <ion-item>
       <ion-label>Materia</ion-label>
-      <ion-select [(ngModel)]="materia">
+      <ion-select [(ngModel)]="ngMateria">
         <ion-option *ngFor="let mat of materias" value="{{mat}}">{{mat}}</ion-option>
       </ion-select>
     </ion-item>
-
+    <!--Ingreso de tema de la documentacion-->
     <ion-item>
       <ion-label stacked>Tema:</ion-label>
       <ion-input type="text"></ion-input>
     </ion-item>
-
+    <!--Ingreso de descripcion de documentacion-->
     <ion-item>
       <ion-label stacked>Descripción:</ion-label>
       <ion-textarea></ion-textarea>
     </ion-item>
-
-
-
-
-
+    <!-- Envia el aporte a la bd firebase-->
+    <button button ion-button block (click)="setAporte()">Compartir aporte</button>
   </ion-list>
+
 </ion-content>

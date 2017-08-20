@@ -23,16 +23,19 @@ export class DependenciaComponent {
   objetRef$:FirebaseListObservable<any>;
 
 
-
    constructor(public navCtrl: NavController,public navParams: NavParams, private database:AngularFireDatabase
   ) {
   // referencia bd
-    this.objetRef$=this.database.list('Dependencia');
+    this.objetRef$=this.database.list('Aportes/Dependencia');
+
+
   }
 
 zonaDeAportes(depen:string){
   this.navCtrl.push(ZonaAporteComponent,{facultad:depen});
 }
+
+
 }
- 
+
 

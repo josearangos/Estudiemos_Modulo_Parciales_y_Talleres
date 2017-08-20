@@ -2,20 +2,28 @@
 <!--  -->
 
 <ion-header>
-  <!--   <ion-title  text-center >  -->
-  <ion-navbar color="primary" >
-    <ion-toolbar color="primary">
+
+  <ion-navbar color="danger" >
+    <ion-toolbar color="danger">
       <ion-searchbar (input)="getItems($event)"></ion-searchbar>
     </ion-toolbar>
   </ion-navbar>
-<!--  {{facultad}}
-  </ion-title>  -->
 </ion-header>
 
 <ion-content>
+
+
+    <ion-item>
+        <div text-center >
+        <ion-icon name="bookmarks"></ion-icon>
+        ESCOGE UNA MATERIA
+        <ion-icon name="bookmarks"></ion-icon>
+      </div>
+    </ion-item>
+
     <ion-list inset>
-    <ion-item *ngFor="let item of items">
-          <button ion-button clear  color="dark" >{{item}}</button>
+    <ion-item *ngFor="let item of objetRef$ | async">
+          <button ion-button clear  color="dark" (click)="goToAportes(item)" >{{item.name}}</button>
     </ion-item>
   </ion-list>
 

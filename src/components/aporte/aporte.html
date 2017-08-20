@@ -1,10 +1,49 @@
 <!-- Generated template for the AporteComponent component -->
-<ion-content padding >
+
+<ion-header>
+  <!--   <ion-title  text-center >  -->
+  <ion-navbar color="secondary">
+    <ion-toolbar color="secondary">
+      <ion-searchbar (input)="getItems($event)"></ion-searchbar>
+    </ion-toolbar>
+  </ion-navbar>
+</ion-header>
 
 
 
+<ion-content padding>
+
+  <ion-item>
+    <div text-center>
+      ZONA DE APORTES
+    </div>
+  </ion-item>
 
 
+
+  <ion-card >
+    <ion-card-content>
+      <ion-card-title>
+        <div text-center>
+        {{materia}}
+        </div>
+      </ion-card-title>
+      <ion-slides class="image-slider" loop="true " pager effect="cube" id="divImages">
+        <!--slide, fade, cube, coverflow or flip-->
+        <ion-slide *ngFor="let img of imagenes">
+          <img src="{{img}}" class="thumb-img" imageViewer>
+        </ion-slide>
+      </ion-slides>
+
+      <ion-card-content>
+      <ion-label color="dark" stacked>Tema:</ion-label>
+      <div>ley de gravitación</div>
+
+      <ion-label color="dark" >Descripción:</ion-label>
+      <div>Ad eu excepteur reprehenderit qui laboris non dolore. Qui quis incididunt non eiusmod eiusmod minim .</div>
+    </ion-card-content>
+    </ion-card-content>
+</ion-card>
 
 
 </ion-content>

@@ -2,6 +2,8 @@ import { CreacionAporteComponent } from './../creacion-aporte/creacion-aporte';
 import { Component } from '@angular/core';
 import { NavController ,NavParams } from 'ionic-angular';
 // import module firebase database
+import { AporteComponent } from '../../components/aporte/aporte';
+
 import {AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
 /**
  * Generated class for the ZonaAporteComponent component.
@@ -25,14 +27,16 @@ export class ZonaAporteComponent {
   items: any[]=[];
 
   constructor(public navCtrl: NavController,public navParams: NavParams,
-    private database:AngularFireDatabase
+    private database:AngularFireDatabase,
   ) {
 
     // variable que contiene la dependencias que se escogio
      this.facultad=navParams.get("facultad");
      // objetRef es el objeto que observa la base de datos nodo de materias
-     this.objetRef$=this.database.list('Materias/'+this.facultad);
+     let ruta='Aportes/Depedencia/'+this.facultad+'/Materias/QuimicaI/';
+     this.objetRef$=this.database.list(ruta);
      //initializar el vector de las materias
+
      this.initializeItems();
   }
 
@@ -41,7 +45,10 @@ export class ZonaAporteComponent {
      this.items=[];
      // se recorre el vector JSON
     this.objetRef$.forEach(element => {
+      console.log("----- "+element.name);
       element.forEach(a => {
+        console.log(a);
+
         // se agregar las materias al vector
         this.items.push(a.name);
       });
@@ -66,7 +73,12 @@ export class ZonaAporteComponent {
   }
 
   irCreacionAporte(){
-    this.navCtrl.push(CreacionAporteComponent);
+    this.navCtrl.push(CreacionAporteComponent,{facultad:this.faculta});
   }
+
+  goToAportes(mate:string){
+    this.navCtrl.push(AporteComponent,{materia:mate});
+  }
+
 
 }

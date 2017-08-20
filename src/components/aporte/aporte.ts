@@ -60,6 +60,7 @@ getAportes(){
  this.aportes.pop();// se saca el ultimo ya que es undefied
 }
 
+
 getItems(ev: any) {
     this.getAportes();
     // set val to the value of the searchbar

@@ -73,7 +73,7 @@ export class ZonaAporteComponent {
   }
 
   irCreacionAporte(){
-    this.navCtrl.push(CreacionAporteComponent,{facultad:this.faculta});
+    this.navCtrl.push(CreacionAporteComponent,{facultad:this.facultad});
   }
 
   goToAportes(mate:string){

@@ -31,7 +31,10 @@ export class CreacionAporteComponent {
   objetRef$:FirebaseListObservable<any>;
 
   constructor(private camera: Camera, private database:AngularFireDatabase, public navParams: NavParams) {
+    this.facultad=navParams.get("facultad");
+    console.log(this.facultad);
     this.objetRef$ = this.database.list('Dependencia');
+
     this.initializeItems();
   }
 

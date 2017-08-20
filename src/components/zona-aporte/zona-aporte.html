@@ -22,8 +22,8 @@
     </ion-item>
 
     <ion-list inset>
-    <ion-item *ngFor="let item of objetRef$ | async">
-          <button ion-button clear  color="dark" (click)="goToAportes(item)" >{{item.name}}</button>
+    <ion-item *ngFor="let item of items">
+          <button ion-button clear  color="dark" (click)="goToAportes(item)" >{{item}}</button>
     </ion-item>
   </ion-list>
 

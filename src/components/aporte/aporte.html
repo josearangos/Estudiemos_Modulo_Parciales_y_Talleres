@@ -21,7 +21,7 @@
 
 
 
-  <ion-card >
+  <ion-card *ngFor="let aport of aportes" >
     <ion-card-content>
       <ion-card-title>
         <div text-center>
@@ -30,17 +30,17 @@
       </ion-card-title>
       <ion-slides class="image-slider" loop="true " pager effect="cube" id="divImages">
         <!--slide, fade, cube, coverflow or flip-->
-        <ion-slide *ngFor="let img of imagenes">
-          <img src="{{img}}" class="thumb-img" imageViewer>
+        <ion-slide *ngFor="let foto of aport.foto">
+          <img src="{{foto}}" class="thumb-img" imageViewer>
         </ion-slide>
       </ion-slides>
 
       <ion-card-content>
       <ion-label color="dark" stacked>Tema:</ion-label>
-      <div>ley de gravitación</div>
+      <div>{{aport.tema}}</div>
 
       <ion-label color="dark" >Descripción:</ion-label>
-      <div>Ad eu excepteur reprehenderit qui laboris non dolore. Qui quis incididunt non eiusmod eiusmod minim .</div>
+      <div>{{aport.descripcion}}</div>
     </ion-card-content>
     </ion-card-content>
 </ion-card>

@@ -33,7 +33,7 @@ export class ZonaAporteComponent {
     // variable que contiene la dependencias que se escogio
      this.facultad=navParams.get("facultad");
      // objetRef es el objeto que observa la base de datos nodo de materias
-     let ruta='Aportes/Depedencia/'+this.facultad+'/Materias/QuimicaI/';
+     let ruta="Aportes/Dependencia/"+this.facultad+"/Materias/";
      this.objetRef$=this.database.list(ruta);
      //initializar el vector de las materias
 
@@ -45,15 +45,15 @@ export class ZonaAporteComponent {
      this.items=[];
      // se recorre el vector JSON
     this.objetRef$.forEach(element => {
-      console.log("----- "+element.name);
-      element.forEach(a => {
-        console.log(a);
-
-        // se agregar las materias al vector
+      element.forEach(a=>{
         this.items.push(a.name);
-      });
+      }
+
+      );
      });
   }
+
+
 
 
   // metodo de filtro de palabras
@@ -77,7 +77,7 @@ export class ZonaAporteComponent {
   }
 
   goToAportes(mate:string){
-    this.navCtrl.push(AporteComponent,{materia:mate});
+    this.navCtrl.push(AporteComponent,{materia:mate,dependencia:this.facultad});
   }
 
 

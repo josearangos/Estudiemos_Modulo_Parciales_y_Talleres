@@ -3,6 +3,7 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 
 import { Component } from '@angular/core';
 import { NavController ,NavParams } from 'ionic-angular';
+import { FirebaseApp } from 'angularfire2';//Import storage
 
 /**
  * Generated class for the AporteComponent component.
@@ -15,7 +16,6 @@ import { NavController ,NavParams } from 'ionic-angular';
   templateUrl: 'aporte.html'
 })
 export class AporteComponent {
-
   public imagenes :any[];
 
   //* variable de la base datos
@@ -30,14 +30,18 @@ export class AporteComponent {
   public rutaFoto:any;
   public t;
   public d;
+  fbStorage;
+  fbStorageRef;
 
    //* firebaseDatabase agregar constructor
-  constructor(public navCtrl: NavController,public navParams: NavParams, private database:AngularFireDatabase) {
+  constructor(public navCtrl: NavController,public navParams: NavParams, private database:AngularFireDatabase, app: FirebaseApp) {
     this.materia=navParams.get("materia");
     this.facultad=navParams.get("dependencia");
     this.ruta="Aportes/Dependencia/"+this.facultad+"/Materias/"+this.materia;
     this.aportes$=this.database.list(this.ruta);
+    this.fbStorage = app.storage();
     this.getAportes();
+
 
   }
 
@@ -47,15 +51,25 @@ getAportes(){
    this.temas=[];
    this.aportes$.forEach(element => {
     element.forEach(a=>{
-        let aport:any={
-        tema:a.tema,
-        descripcion:a.Descripcion,
-        foto:a.fotos
-      }
+      var fotosL = [];
+      for (var arr in a.fotos) {
+       for (var e in a.fotos[arr]) {
+         var directorio = 'Aportes/Dependencia/'+this.facultad+"/Materias/"+this.materia+"/"+a.$key+"/"+e.toString();
+         var gsURL = a.fotos[arr][e];
+         console.log("1");
+         fotosL.push(this.retorneLinksFoto(directorio, gsURL));
 
-      this.aportes.push(aport);
-      aport=[];
-    });
+       }
+      }
+      let aport:any={
+      tema:a.tema,
+      descripcion:a.Descripcion,
+      foto: fotosL
+    }
+
+    this.aportes.push(aport);
+    aport=[];
+  });
  });
  this.aportes.pop();// se saca el ultimo ya que es undefied
 }
@@ -74,5 +88,11 @@ getItems(ev: any) {
 
 }
 
+retorneLinksFoto(directorio, gsURL){
+  this.fbStorageRef = this.fbStorage.ref(directorio);
+  //this.fbStorageRef = this.fbStorage.refFromURL(gsURL);
+  this.fbStorageRef.getDownloadURL().then(function(url) {
 
+  });
+}
 }

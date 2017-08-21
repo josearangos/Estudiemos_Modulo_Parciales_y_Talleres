@@ -69,6 +69,7 @@ export class CreacionAporteComponent {
   }
 
   setAporte(){
+    //Incerta en la bd
     var directorio = 'Aportes/Dependencia/'+this.facultad+"/Materias/"+this.ngMateria;
     this.objetRef$=this.database.list(directorio);
     var key = this.objetRef$.push({
@@ -76,6 +77,7 @@ export class CreacionAporteComponent {
       tema: this.ngTema,
       descripcion : this.ngDescripcion
     }).key;
+    //incerta las imgs en storage bd manteniendo el directorio de la bd
     directorio = directorio+"/"+key;
     var linksImgs = [];
     for(var cont = 0; cont < this.storageImgs.length;cont++){
@@ -85,9 +87,10 @@ export class CreacionAporteComponent {
       });
       linksImgs.push("gs://estudiemos-e06c3.appspot.com/"+directorio+"/"+cont.toString())
     }
+    //Actualizo la bd con los enlaces de las fotos
     this.objetRef$=this.database.list(directorio);
     this.objetRef$.update("fotos",{
-      fotos: linksImgs
+      array: linksImgs
     });
   }
 }

@@ -1,4 +1,4 @@
-import { NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 //Import firebase
@@ -30,7 +30,7 @@ export class CreacionAporteComponent {
   */
   objetRef$:FirebaseListObservable<any>;
 
-  constructor(private camera: Camera, private database:AngularFireDatabase, public navParams: NavParams, app: FirebaseApp) {
+  constructor(private camera: Camera, private database:AngularFireDatabase, public navParams: NavParams, app: FirebaseApp, public navCtrl: NavController) {
     this.facultad=navParams.get("facultad");
     console.log(this.facultad);
     this.objetRef$=this.database.list('Aportes/Dependencia/'+this.facultad+"/Materias");
@@ -69,7 +69,7 @@ export class CreacionAporteComponent {
   }
 
   setAporte(){
-    //Incerta en la bd
+    /*//Incerta en la bd
     var directorio = 'Aportes/Dependencia/'+this.facultad+"/Materias/"+this.ngMateria;
     this.objetRef$=this.database.list(directorio);
     var key = this.objetRef$.push({
@@ -91,6 +91,7 @@ export class CreacionAporteComponent {
     this.objetRef$=this.database.list(directorio);
     this.objetRef$.update("fotos",{
       array: linksImgs
-    });
+    });*/
+    this.navCtrl.pop();
   }
 }

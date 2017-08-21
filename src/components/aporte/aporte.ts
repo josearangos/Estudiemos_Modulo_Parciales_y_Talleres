@@ -24,7 +24,7 @@ export class AporteComponent {
 
   public materia;
   public facultad;
-  public aportes:any[]=[];
+  public aportes = [];
   public temas:any[]=[];
   public ruta:any;
   public rutaFoto:any;
@@ -45,36 +45,6 @@ export class AporteComponent {
 
   }
 
-// obtener los aportes de las personas relacionadas con las materias.
-getAportes(){
-   this.aportes=[];
-   this.temas=[];
-   this.aportes$.forEach(element => {
-    element.forEach(a=>{
-      var fotosL = [];
-      for (var arr in a.fotos) {
-       for (var e in a.fotos[arr]) {
-         var directorio = 'Aportes/Dependencia/'+this.facultad+"/Materias/"+this.materia+"/"+a.$key+"/"+e.toString();
-         var gsURL = a.fotos[arr][e];
-         console.log("1");
-         fotosL.push(this.retorneLinksFoto(directorio, gsURL));
-
-       }
-      }
-      let aport:any={
-      tema:a.tema,
-      descripcion:a.Descripcion,
-      foto: fotosL
-    }
-
-    this.aportes.push(aport);
-    aport=[];
-  });
- });
- this.aportes.pop();// se saca el ultimo ya que es undefied
-}
-
-
 getItems(ev: any) {
     this.getAportes();
     // set val to the value of the searchbar
@@ -85,14 +55,56 @@ getItems(ev: any) {
             return (item.tema.toLowerCase().indexOf(val.toLowerCase()) > -1);
           })
         }
-
 }
 
-retorneLinksFoto(directorio, gsURL){
-  this.fbStorageRef = this.fbStorage.ref(directorio);
-  //this.fbStorageRef = this.fbStorage.refFromURL(gsURL);
-  this.fbStorageRef.getDownloadURL().then(function(url) {
-
+// obtener los aportes de las personas relacionadas con las materias.
+getAportes(){
+   this.aportes=[];
+   this.temas=[];
+   this.aportes$.forEach(element => {
+    element.forEach(a=>{
+      for (var arr in a.fotos) {//Mete a la parte visual cada aporte
+        this.guardarAporte(a.fotos[arr], a);
+      }
   });
+ });
 }
+
+guardarAporte(arrImgs, json){
+  //Captura todas las imagenes, cuando inicia crea el aporte,
+  //cuando continua con el proceso solo reescribe el aporte en foto
+  for (var e in arrImgs) {
+    //directorio en el storage
+    var directorio = 'Aportes/Dependencia/'+this.facultad+"/Materias/"+this.materia+"/"+json.$key+"/"+e.toString();
+    //var gsURL = arrImgs[e];
+    //Referencia del storage
+    this.fbStorageRef = this.fbStorage.ref(directorio);
+    //this.fbStorageRef = this.fbStorage.refFromURL(gsURL);
+    //Obtiene el URL de descarga para mostrar en pantalla
+    this.fbStorageRef.getDownloadURL().then(url => {
+      var bool = true;
+      var aux;
+      //Verifica que el extista el aporte en la parte visual
+      for (var index in this.aportes) {
+        if (this.aportes[index].key == json.$key) {
+          bool = false;
+          aux = index;
+          break;
+        }
+      }
+      //Si existe solo agrega foto
+      if (!bool) {//SI EXISTE
+        this.aportes[aux]['foto'].push(url);
+      }else{//NO EXISTE
+        let aport:any={
+        tema:json.tema,
+        descripcion:json.descripcion,
+        foto: [url],
+        key : json.$key
+        }
+        this.aportes.push(aport);
+      }
+      });
+    }
+  }
 }

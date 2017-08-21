@@ -69,7 +69,7 @@ export class CreacionAporteComponent {
   }
 
   setAporte(){
-    /*//Incerta en la bd
+    //Incerta en la bd
     var directorio = 'Aportes/Dependencia/'+this.facultad+"/Materias/"+this.ngMateria;
     this.objetRef$=this.database.list(directorio);
     var key = this.objetRef$.push({
@@ -83,7 +83,6 @@ export class CreacionAporteComponent {
     for(var cont = 0; cont < this.storageImgs.length;cont++){
       this.fbStorageRef = this.fbStorage.ref().child(directorio+"/"+cont.toString());
       this.fbStorageRef.putString(this.storageImgs[cont], 'base64').then(function(snapshot) {
-        alert("Aporte enviado");
       });
       linksImgs.push("gs://estudiemos-e06c3.appspot.com/"+directorio+"/"+cont.toString())
     }
@@ -91,7 +90,8 @@ export class CreacionAporteComponent {
     this.objetRef$=this.database.list(directorio);
     this.objetRef$.update("fotos",{
       array: linksImgs
-    });*/
+    });
+    alert("Aporte enviado");
     this.navCtrl.pop();
   }
 }
